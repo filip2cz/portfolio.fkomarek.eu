@@ -1,0 +1,60 @@
+name: Sign html files and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  signing_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install GPG agent
+        run: |
+          sudo apt-get install gnupg-agent
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Everything about signing files
+        run: |
+          git clone https://github.com/tasn/webext-signed-pages.git
+          cd webext-signed-pages
+          npm install
+          cp ../.github/workflows/page-signer-edited.js ./
+          cd ..
+          chmod 700 ./webext-signed-pages/page-signer-edited.js
+          gpg --export -a henshouse > pub.key
+          node ./webext-signed-pages/page-signer-edited.js index.html index.html
+          node ./webext-signed-pages/page-signer-edited.js signed.html signed.html
+          rm -r webext-signed-pages
+        env:
+          GPG_SIGNING_KEY: secrets.GPG_PASSPHRASE
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+%%%SIGNED_PAGES_PGP_SIGNATURE%%%
+-->
+<html>
+
+<head>
+    <title>Filip Komárek</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        body {
+            font-family: "Cambria", sans-serif
+        }
+
+        body {
+            font-family: "Open Sans", sans-serif
+        }
+    </style>
+</head>
+<!--- <body class="w3-light-grey"> -->
+
+<body style="background-color:#16161d;" class="w3-text-white">
+
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'pub.key', true);
+        xhr.onreadystatechange = function () {
+            if (this.readyState !== 4) return;
+            if (this.status !== 200) return; // or whatever error handling you want
+            document.getElementById('pubkey').innerHTML = this.responseText;
+        };
+        xhr.send();
+    </script>
+
+    <!-- Page Container -->
+
+    <div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+            <div>
+                <h1 class="w3-text-white">This page is signed with GPG key</h1>
+
+                <ol>
+                    <li>
+                        <h2 class="w3-text-white">Install:</h2>
+                    </li>
+                    <p class="w3-text-white"><a href="https://addons.mozilla.org/cs/firefox/addon/signed-pages/" target="_blank">Firefox</a>
+                    </p>
+                    <p class="w3-text-white"><a href="https://chrome.google.com/webstore/detail/signed-pages/pdhofgeoopaglkejgpjojeikbdmkmkbp"
+                            target="_blank">Chrome</a></p>
+                    <li>
+                        <h2 class="w3-text-white">Add this webpage:</h2>
+                    </li>
+                    <p class="w3-text-white">Go to addod settings:</p>
+                    <ul>
+                        <li class="w3-text-white">Firefox: go to <b>about:addons</b> and find Signed Pages extension</li>
+                        <li class="w3-text-white">Chrome: <b>chrome://extensions/?options=pdhofgeoopaglkejgpjojeikbdmkmkbp</b></li>
+                    </ul>
+                    <li>
+                        <h2 class="w3-text-white">Click on <b>Add item</b></h2>
+                    </li>
+                    <li>
+                        <h2 class="w3-text-white">Put this into settings:</h2>
+                    </li>
+                    <pre class="w3-text-white">Pattern (watch out for html escaping!):
+https://portfolio.fkomarek.eu/*
+http://portfolio.fkomarek.eu/*
+
+Pubkey:</pre>
+                    <pre id="pubkey" class="w3-text-white">pubkey did not loaded sucefully</pre>
+                </ol>
+            </div>
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
+    </div>
+
+    <style>
+        #badge {
+            height: 175px;
+            visibility: visible;
+        }
+    </style>
+</body>
+
+</html>
