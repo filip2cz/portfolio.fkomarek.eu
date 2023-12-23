@@ -47,6 +47,7 @@ jobs:
           chmod 700 ./webext-signed-pages/page-signer-edited.js
           gpg --export -a portfolio.fkomarek.eu > pub.key
           node ./webext-signed-pages/page-signer-edited.js index.html index.html
+          node ./webext-signed-pages/page-signer-edited.js en.html en.html
           node ./webext-signed-pages/page-signer-edited.js signed.html signed.html
           rm -r webext-signed-pages
         env:
